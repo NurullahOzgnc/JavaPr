@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182a97a4b82587846828d8644a5862ef, type: 3}
+  m_Name: New Character Data Base
+  m_EditorClassIdentifier: 
+  character:
+  - characterName: Fire Knight
+    characterSprite: {fileID: 21300000, guid: b7375c5f2f0523f4ba0782fecd716707, type: 3}
+  - characterName: Leaf Ranger
+    characterSprite: {fileID: 21300000, guid: 8a10a75fe70b3a84dbfb5680b296f065, type: 3}
+  - characterName: Water Priestess
+    characterSprite: {fileID: 21300000, guid: cfb1dac049eb2e14483dd68df74ad02b, type: 3}
+  - characterName: Wind Hashashin
+    characterSprite: {fileID: 21300000, guid: 9587952aeb2f5004e853802e227e6b12, type: 3}
