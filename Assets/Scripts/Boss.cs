@@ -23,9 +23,9 @@ public class Boss : MonoBehaviour
         
         
         currentHealth -= damage;
-
-        anim.SetTrigger("Hurt");
-
+        anim.SetBool("Walking", false);     //damage aldýðý vaki yürüme anim. durduruyor
+        anim.SetTrigger("Hurt");            //hasar alma anim. çalýþtýrýyor
+        anim.SetBool("Walking", true);      //tekrardan yürümeye devam ediyor
         if (currentHealth <= 0)
         {
             Die();

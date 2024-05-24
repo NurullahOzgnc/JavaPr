@@ -20,6 +20,9 @@ public class BossAI : MonoBehaviour
     private Animator anim;
     public float damageToPlayer = 10;
     Vector3 demonPos;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class BossAI : MonoBehaviour
     {
         bossAi();
         demonPos = transform.position- new Vector3(0,2f,0);
+
     }
     void bossMove()
     {
@@ -76,7 +80,6 @@ public class BossAI : MonoBehaviour
        
         Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, transform.position.z);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, followSpeed * Time.deltaTime);
-        FlipSpriteBasedOnDirection();
     }
     private void FlipSpriteBasedOnDirection()
     {
@@ -94,38 +97,39 @@ public class BossAI : MonoBehaviour
     }
     IEnumerator StopForAttack()
     {
+
         RaycastHit2D hitEnemy = Physics2D.Raycast(transform.position, -transform.right, distance);
 
         if (anim.GetBool("Attack") == true)
-        {
+        {            
+            anim.SetBool("Walking", false);
             followSpeed = 0; // Takip hýzýný durdur
             yield return new WaitForSeconds(2f); // Saldýrý süresini ayarla
-           
-            anim.SetBool("Attack", false); // Saldýrýyý durdur
+         /*   anim.SetBool("Attack", false); // Saldýrýyý durdur
+
+
+            FlipSpriteBasedOnDirection();
 
             followSpeed = originalFollowSpeed; // Takip hýzýný eski haline getir
-
+            anim.SetBool("Walking", true); */
         }
-        if (hitEnemy.collider == null) //karakter eðer alanýmýzdan çýktýysa saldýrýyý durdurup tekrardan takip etmeye baþlýyor
-        {
-            Debug.DrawLine(transform.position, hitEnemy.point, Color.green);
-            anim.SetBool("Attack", false);
 
+
+       
+
+          if (hitEnemy.collider == null) //karakter eðer alanýmýzdan çýktýysa saldýrýyý durdurup tekrardan takip etmeye baþlýyor
+        {            
+            anim.SetBool("Attack", false);
+            Debug.DrawLine(transform.position, hitEnemy.point, Color.green);
+            anim.SetBool("Walking", true);      //karaktere vurduktan sonra bossun beklememesi için Walking eklendi
+            followSpeed = originalFollowSpeed;
             FlipSpriteBasedOnDirection();
             
         }
+        
+
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        Player player = collision.gameObject.GetComponent<Player>();
-    //        if (player != null)
-    //        {
-    //            player.GetComponent<Bow>().takeDamage(damageToPlayer);
-    //        }
-    //    }
-    //}
+
     void AttackOnAnimation()
     {
 
