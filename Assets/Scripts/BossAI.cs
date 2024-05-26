@@ -97,36 +97,27 @@ public class BossAI : MonoBehaviour
     }
     IEnumerator StopForAttack()
     {
+        // Saldýrý animasyonu süresince bekle
+        followSpeed = 0;        // Takip hýzýný durdur
+        anim.SetBool("Walking", false);
+        yield return new WaitForSeconds(1f); // Saldýrý süresini ayarla
 
-        RaycastHit2D hitEnemy = Physics2D.Raycast(transform.position, -transform.right, distance);
-
-        if (anim.GetBool("Attack") == true)
-        {            
-            anim.SetBool("Walking", false);
-            followSpeed = 0; // Takip hýzýný durdur
-            yield return new WaitForSeconds(2f); // Saldýrý süresini ayarla
-         /*   anim.SetBool("Attack", false); // Saldýrýyý durdur
-
-
-            FlipSpriteBasedOnDirection();
-
-            followSpeed = originalFollowSpeed; // Takip hýzýný eski haline getir
-            anim.SetBool("Walking", true); */
+        // Oyuncunun hala saldýrý menzilinde olup olmadýðýný kontrol et
+        RaycastHit2D hitEnemy = Physics2D.Raycast(demonPos, -transform.right, distance, playerLayer);
+        if (hitEnemy.collider != null)
+        {
+            // Eðer oyuncu hala menzildeyse saldýrýya devam et
+            StartCoroutine(StopForAttack());
         }
-
-
-       
-
-          if (hitEnemy.collider == null) //karakter eðer alanýmýzdan çýktýysa saldýrýyý durdurup tekrardan takip etmeye baþlýyor
-        {            
+        else
+        {
+            // Oyuncu menzilden çýktýysa normale dön
             anim.SetBool("Attack", false);
-            Debug.DrawLine(transform.position, hitEnemy.point, Color.green);
-            anim.SetBool("Walking", true);      //karaktere vurduktan sonra bossun beklememesi için Walking eklendi
+            anim.SetBool("Walking", true);
             followSpeed = originalFollowSpeed;
-            FlipSpriteBasedOnDirection();
-            
         }
-        
+
+
 
     }
 
